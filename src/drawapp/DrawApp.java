@@ -1,30 +1,30 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package drawapp;
 
-import javax.swing.SwingUtilities;
-import java.awt.Color;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.StringReader;
+import javafx.application.Application;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
-public class DrawApp
-{
-  public static void main(String[] args)
-  {
-    final MainWindow main = new MainWindow();
-
-    SwingUtilities.invokeLater(
-    new Runnable()
-    {
-      public void run()
-      {
+/**
+ *
+ * @author AditTrivedi
+ */
+public class DrawApp extends Application {
+    public static void main(String[] args) { 
+        
+    }
+    @Override
+        public void start(Stage primaryStage) {
+        MainWindow main = new MainWindow(primaryStage);
         ImagePanel imagePanel = main.getImagePanel();
         Reader reader = new InputStreamReader(System.in);
         Parser parser = new Parser(reader,imagePanel,main);
         parser.parse();
-        imagePanel.repaint();
-      }
+        primaryStage.show();
     }
-  );
-
-  }
 }
