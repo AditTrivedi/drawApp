@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Parser
@@ -55,8 +54,6 @@ public class Parser
     if (command.equals("DS")) { drawString(line.substring(3, line.length())); return; }
     if (command.equals("DA")) { drawArc(line.substring(2, line.length())); return; }
     if (command.equals("DO")) { drawOval(line.substring(2, line.length())); return; }
-
-
     throw new ParseException("Unknown drawing command");
   }
 
@@ -66,12 +63,13 @@ public class Parser
     int y1 = 0;
     int x2 = 0;
     int y2 = 0;
-
     StringTokenizer tokenizer = new StringTokenizer(args);
     x1 = getInteger(tokenizer);
     y1 = getInteger(tokenizer);
     x2 = getInteger(tokenizer);
     y2 = getInteger(tokenizer);
+    if(x1<0 || y1<0 || x2<0 || y2<0)
+        throw new ParseException("Invalid Integer value");
     image.drawLine(x1,y1,x2,y2);
   }
 
@@ -81,12 +79,13 @@ public class Parser
     int y1 = 0;
     int x2 = 0;
     int y2 = 0;
-
     StringTokenizer tokenizer = new StringTokenizer(args);
     x1 = getInteger(tokenizer);
     y1 = getInteger(tokenizer);
     x2 = getInteger(tokenizer);
     y2 = getInteger(tokenizer);
+    if(x1<0 || y1<0 || x2<0 || y2<0)
+        throw new ParseException("Invalid Integer value");
     image.drawRect(x1, y1, x2, y2);
   }
 
@@ -96,12 +95,13 @@ public class Parser
     int y1 = 0;
     int x2 = 0;
     int y2 = 0;
-
     StringTokenizer tokenizer = new StringTokenizer(args);
     x1 = getInteger(tokenizer);
     y1 = getInteger(tokenizer);
     x2 = getInteger(tokenizer);
     y2 = getInteger(tokenizer);
+    if(x1<0 || y1<0 || x2<0 || y2<0)
+        throw new ParseException("Invalid Integer value");
     image.fillRect(x1, y1, x2, y2);
   }
 
@@ -113,7 +113,6 @@ public class Parser
     int height = 0;
     int startAngle = 0;
     int arcAngle = 0;
-
     StringTokenizer tokenizer = new StringTokenizer(args);
     x = getInteger(tokenizer);
     y = getInteger(tokenizer);
@@ -121,6 +120,8 @@ public class Parser
     height = getInteger(tokenizer);
     startAngle = getInteger(tokenizer);
     arcAngle = getInteger(tokenizer);
+    if(x<0 || y<0 || width<0 || height<0 || startAngle<0 || arcAngle<0)
+        throw new ParseException("Invalid Integer value");
     image.drawArc(x, y, width, height, startAngle, arcAngle);
   }
 
@@ -130,12 +131,13 @@ public class Parser
     int y1 = 0;
     int width = 0;
     int height = 0;
-
     StringTokenizer tokenizer = new StringTokenizer(args);
     x1 = getInteger(tokenizer);
     y1 = getInteger(tokenizer);
     width = getInteger(tokenizer);
     height = getInteger(tokenizer);
+    if(x1<0 || y1<0 || width<0 || height<0)
+        throw new ParseException("Invalid Integer value");
     image.drawOval(x1, y1, width, height);
   }
 
@@ -150,6 +152,8 @@ public class Parser
     int position = args.indexOf("@");
     if (position == -1) throw new ParseException("DrawString string is missing");
     s = args.substring(position+1,args.length());
+    if(x<0 || y<0)
+        throw new ParseException("Invalid Integer value");
     image.drawString(x,y,s);
   }
 
