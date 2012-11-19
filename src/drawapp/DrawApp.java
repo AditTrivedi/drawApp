@@ -4,9 +4,13 @@
  */
 package drawapp;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -19,12 +23,11 @@ public class DrawApp extends Application {
         
     }
     @Override
-        public void start(Stage primaryStage) {
-        MainWindow main = new MainWindow(primaryStage);
-        ImagePanel imagePanel = main.getImagePanel();
+        public void start(Stage primaryStage) throws IOException {
         Reader reader = new InputStreamReader(System.in);
-        Parser parser = new Parser(reader,imagePanel,main);
-        parser.parse();
+        MainWindow main = new MainWindow(primaryStage,reader);
+        ImagePanel imagePanel = main.getImagePanel();
+        Parser parser = new Parser(reader,imagePanel,main,primaryStage);
         primaryStage.show();
     }
 }
